@@ -18,6 +18,14 @@ public abstract class User {
         this.borrowedBooks = new ArrayList<>();
     }
 
+    public void addBorrowedBook(Book book) {
+        borrowedBooks.add(book.getIsbn());
+    }
+
+    public void removeBorrowedBook(Book book) {
+        borrowedBooks.remove(book.getIsbn());
+    }
+
     public abstract int getMaxBooks();
 
     public abstract int getBorrowDays();

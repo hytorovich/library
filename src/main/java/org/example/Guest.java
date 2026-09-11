@@ -1,7 +1,7 @@
 package org.example;
 
 public class Guest extends User {
-    public Guest(String name, UserType userType, String email, String userId) {
+    public Guest(String name, String email, String userId) {
         super(name, UserType.GUEST, email, userId);
     }
 

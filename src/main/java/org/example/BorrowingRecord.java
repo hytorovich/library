@@ -9,9 +9,8 @@ public class BorrowingRecord {
     private LocalDate dueDate;
     private LocalDate returnDate;
 
-    public BorrowingRecord(String userId, LocalDate returnDate, LocalDate dueDate, LocalDate borrowDate, String isbn) {
+    public BorrowingRecord(String userId, LocalDate dueDate, LocalDate borrowDate, String isbn) {
         this.userId = userId;
-        this.returnDate = returnDate;
         this.dueDate = dueDate;
         this.borrowDate = borrowDate;
         this.isbn = isbn;
@@ -36,5 +35,11 @@ public class BorrowingRecord {
     public LocalDate getReturnDate() {
         return returnDate;
     }
+
+    public void setReturnDate(LocalDate returnDate) {
+        this.returnDate = returnDate;
+    }
+
+
 }
 
