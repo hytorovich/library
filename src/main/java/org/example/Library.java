@@ -95,12 +95,12 @@ public class Library implements LibraryOperations {
 
         for (BorrowingRecord record : borrowingRecords) {
             if (record.getUserId().equals(userId) && record.getIsbn().equals(isbn) &&
-                    record.getReturnDate() == null)
+                    record.getReturnDate() == null) {
                 record.setReturnDate(LocalDate.now());
-            users.get(userId).removeBorrowedBook(books.get(isbn));
-            books.get(isbn).setAvailable(true);
-            return true;
-
+                users.get(userId).removeBorrowedBook(books.get(isbn));
+                books.get(isbn).setAvailable(true);
+                return true;
+            }
         }
         return false;
     }
