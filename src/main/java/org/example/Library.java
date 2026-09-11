@@ -34,8 +34,7 @@ public class Library implements LibraryOperations {
         for (Book book : books.values()) {
             if (book.getTitle().toLowerCase().contains(searchQuery)
                     || book.getAuthor().toLowerCase().contains(searchQuery)
-                    || book.getGenre().toLowerCase().contains(searchQuery)) {
-
+                    || book.getIsbn().toLowerCase().contains(searchQuery)) {
                 result.add(book);
             }
         }
@@ -46,11 +45,11 @@ public class Library implements LibraryOperations {
     @Override
     public void registerUser(String name, String userId, String email, UserType type) {
         if (UserType.FACULTY.equals(type)) {
-            users.put(userId, new Faculty(name, userId, email));
+            users.put(userId, new Faculty(name, email, userId));
         } else if (UserType.GUEST.equals(type)) {
-            users.put(userId, new Guest(name, userId, email));
+            users.put(userId, new Guest(name, email, userId));
         } else if (UserType.STUDENT.equals(type)) {
-            users.put(userId, new Student(name, userId, email));
+            users.put(userId, new Student(name, email, userId));
         } else {
             System.out.println("Unknown user type: " + type);
         }
@@ -63,10 +62,13 @@ public class Library implements LibraryOperations {
 
     @Override
     public boolean borrowBook(String userId, String isbn) {
-        if (users.get(userId) == null || books.get(isbn) == null
-                || !books.get(isbn).isAvailable()) {
+        if (users.get(userId) == null
+                || books.get(isbn) == null
+                || !books.get(isbn).isAvailable()
+                || !users.get(userId).canBorrow()) {
             return false;
         }
+
         users.get(userId).addBorrowedBook(books.get(isbn));
         books.get(isbn).setAvailable(false);
 

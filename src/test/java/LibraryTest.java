@@ -129,11 +129,23 @@ public class LibraryTest {
     }
 
     @Test
-    void shouldSearchBooksByGenreIgnoringCase() {
-        List<Book> result = library.searchBooks("FANTASY");
+    void shouldSearchBooksByIsbn() {
+        List<Book> result = library.searchBooks("222");
 
         assertEquals(1, result.size());
-        assertEquals("222", result.get(0).getIsbn());
+        assertEquals("The Hobbit", result.get(0).getTitle());
+    }
+
+    @Test
+    void studentShouldNotBorrowMoreThanThreeBooks() {
+        library.addBook("Book 3", "Author", "333", "Genre");
+        library.addBook("Book 4", "Author", "444", "Genre");
+
+        assertTrue(library.borrowBook("user1", "111"));
+        assertTrue(library.borrowBook("user1", "222"));
+        assertTrue(library.borrowBook("user1", "333"));
+
+        assertFalse(library.borrowBook("user1", "444"));
     }
 
     @Test
